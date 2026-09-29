@@ -1,0 +1,23 @@
+{
+  "name": "dogfood-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An auditable, self-hosted hackathon submission and judging platform built around judging integrity.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "pnpm --filter @dogfood/api dev",
+    "dev:all": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "start": "pnpm --filter @dogfood/api start",
+    "test": "vitest run",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "seed": "pnpm --filter @dogfood/api seed",
+    "accept": "python run.py .dogfood.toml"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

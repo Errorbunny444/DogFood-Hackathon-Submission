@@ -1,0 +1,32 @@
+:80 {
+    # Logging
+    log {
+        output stdout
+        format console
+    }
+
+    # Serve static frontend compiled assets
+    root * /srv/dist
+    file_server
+
+    # Reverse proxy API requests to Fastify backend
+    handle /api/* {
+        reverse_proxy api:8080 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+        }
+    }
+
+    # Reverse proxy uploaded assets to Fastify backend
+    handle /uploads/* {
+        reverse_proxy api:8080 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+        }
+    }
+
+    # Fallback to SPA index.html for client-side routing
+    handle {
+        try_files {path} /index.html
+    }
+}

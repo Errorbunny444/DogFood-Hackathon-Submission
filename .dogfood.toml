@@ -1,0 +1,19 @@
+[portal]
+base_url = "http://localhost:8080"
+
+[tiers]
+claimed = ["T1", "T2"]
+pitch = "An auditable, self-hosted hackathon submission and judging platform built around judging integrity."
+
+[auth]
+organizer   = "Cookie: session=dogfood_org_session_token_2026"
+judge_a     = "Cookie: session=dogfood_judge_a_session_token_2026"
+judge_b     = "Cookie: session=dogfood_judge_b_session_token_2026"
+participant = "Cookie: session=dogfood_participant_session_token_2026"
+
+[routes]
+gallery      = "/api/v1/public/projects"
+submit       = "/api/v1/events/evt_01/projects"
+judge_scores = "/api/v1/judges/jdg_01/scores"
+peer_scores  = "/api/v1/judges/jdg_01/scores"
+csv_export   = "/api/v1/events/evt_01/export/results.csv"

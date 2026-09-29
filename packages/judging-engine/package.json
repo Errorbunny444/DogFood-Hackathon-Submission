@@ -1,0 +1,43 @@
+{
+  "name": "@dogfood/judging-engine",
+  "version": "1.0.0",
+  "description": "Pure mathematical and statistical calibration engine for hackathon judging, rubric normalization, and reproducible rankings.",
+  "license": "MIT",
+  "author": "DOGFOOD 2026 Core Contributors",
+  "keywords": [
+    "hackathon",
+    "judging",
+    "normalization",
+    "empirical-bayes",
+    "bradley-terry",
+    "ranking",
+    "peer-review",
+    "calibration"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@dogfood/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

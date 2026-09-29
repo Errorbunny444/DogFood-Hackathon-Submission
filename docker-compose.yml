@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dogfood
+      POSTGRES_USER: dogfood
+      POSTGRES_PASSWORD: dogfood
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dogfood -d dogfood"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://dogfood:dogfood@db:5432/dogfood
+      STORAGE_PATH: /data/uploads
+      NODE_ENV: production
+      APP_MODE: demo
+      SEED_DEMO_DATA: "true"
+      PORT: "8080"
+      HOST: "0.0.0.0"
+      CORS_ORIGIN: "http://localhost:8080"
+    volumes:
+      - uploads:/data/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  proxy:
+    build:
+      context: .
+      dockerfile: infrastructure/caddy/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  uploads:
